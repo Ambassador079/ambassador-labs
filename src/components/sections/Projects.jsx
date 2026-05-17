@@ -1,122 +1,119 @@
-import { useRef, useState } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { useRef, useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 
-/* ============================================
-   Projects — Premium animated project cards
-   - Shows 2 featured projects initially
-   - "View All" reveals remaining 3 in a modal/stack
-   - Hover reveals tech stack + links
-
-   HOW TO ADD PROJECT IMAGES:
-   1. Place images in: src/assets/images/
-   2. Import: import proj1 from '../../assets/images/project1.png'
-   3. Set image: proj1 in the PROJECTS array below
-   ============================================ */
+import proj1 from "../../assets/images/kassy.png";
+import proj2 from "../../assets/images/chiamaka.png";
+import proj3 from "../../assets/images/ucanada.png";
+import proj4 from "../../assets/images/kassy.png";
+import proj5 from "../../assets/images/kassy.png";
 
 const PROJECTS = [
   {
     id: 1,
-    title: 'NovaDash',
-    subtitle: 'SaaS Analytics Platform',
-    desc: 'A real-time analytics dashboard with cinematic data visualizations, live WebSocket feeds, and immersive dark UI that makes data feel alive.',
-    tech: ['React', 'Three.js', 'WebSocket', 'Tailwind'],
+    title: "NovaDash",
+    subtitle: "SaaS Analytics Platform",
+    desc: "A real-time analytics dashboard with cinematic data visualizations, live WebSocket feeds, and immersive dark UI that makes data feel alive.",
+    tech: ["React", "Three.js", "WebSocket", "Tailwind"],
     featured: true,
-    color: '#00f5ff',
-    // image: proj1, // ← Replace with your import
-    emoji: '📊',
-    live: 'https://example.com',
-    github: 'https://github.com',
-    year: '2024',
-    tag: 'Featured',
+    color: "#00f5ff",
+    image: proj1,
+    live: "https://example.com",
+    github: "https://github.com",
+    year: "2026",
+    tag: "Featured",
   },
   {
     id: 2,
-    title: 'Spectra UI',
-    subtitle: 'Design System & Component Library',
-    desc: 'A fully animated, accessibility-first React component library with 80+ components, Storybook integration, and physics-based motion.',
-    tech: ['React', 'Framer Motion', 'Storybook', 'GSAP'],
+    title: "Chiamaka",
+    subtitle: "Design System & Component Library",
+    desc: "A fully animated, accessibility-first React component library with 80+ components, Storybook integration, and physics-based motion.",
+    tech: ["React", "Framer Motion", "Storybook", "GSAP"],
     featured: true,
-    color: '#ff4d88',
-    emoji: '🎨',
-    live: 'https://example.com',
-    github: 'https://github.com',
-    year: '2024',
-    tag: 'Open Source',
+    color: "#ff4d88",
+    image: proj2,
+    live: "https://example.com",
+    github: "https://github.com",
+    year: "2024",
+    tag: "Open Source",
   },
   {
     id: 3,
-    title: 'Orbit',
-    subtitle: 'Portfolio Template Suite',
-    desc: 'A collection of premium, customizable portfolio templates built with Next.js and Framer Motion for creatives and developers.',
-    tech: ['Next.js', 'Framer Motion', 'Tailwind', 'Lenis'],
+    title: "UCanada",
+    subtitle: "Portfolio Template Suite",
+    desc: "A collection of premium, customizable portfolio templates built with Next.js and Framer Motion for creatives and developers.",
+    tech: ["Next.js", "Framer Motion", "Tailwind", "Lenis"],
     featured: false,
-    color: '#7b61ff',
-    emoji: '🚀',
-    live: 'https://example.com',
-    github: 'https://github.com',
-    year: '2023',
-    tag: 'Template',
+    color: "#7b61ff",
+    image: proj3,
+    live: "https://example.com",
+    github: "https://github.com",
+    year: "2023",
+    tag: "Live",
   },
   {
     id: 4,
-    title: 'FlowCMS',
-    subtitle: 'Headless Content Management',
-    desc: 'A developer-first headless CMS with a beautiful visual editor, drag-and-drop block system, and instant API generation.',
-    tech: ['React', 'Node.js', 'GraphQL', 'PostgreSQL'],
+    title: "Project Four",
+    subtitle: "Headless Content Management",
+    desc: "A developer-first headless CMS with a beautiful visual editor, drag-and-drop block system, and instant API generation.",
+    tech: ["React", "Node.js", "GraphQL", "PostgreSQL"],
     featured: false,
-    color: '#00ff88',
-    emoji: '⚡',
-    live: 'https://example.com',
-    github: 'https://github.com',
-    year: '2023',
-    tag: 'Full Stack',
+    color: "#00ff88",
+    image: proj4,
+    live: "https://example.com",
+    github: "https://github.com",
+    year: "2023",
+    tag: null,
   },
   {
     id: 5,
-    title: 'Prism',
-    subtitle: '3D Product Showcase',
-    desc: 'An interactive 3D product visualization platform for e-commerce, featuring real-time lighting, material swapping, and AR preview.',
-    tech: ['Three.js', 'React Three Fiber', 'Drei', 'GSAP'],
+    title: "Project Five",
+    subtitle: "3D Product Showcase",
+    desc: "An interactive 3D product visualization platform for e-commerce, featuring real-time lighting, material swapping, and AR preview.",
+    tech: ["Three.js", "React Three Fiber", "Drei", "GSAP"],
     featured: false,
-    color: '#f7df1e',
-    emoji: '🔮',
-    live: 'https://example.com',
-    github: 'https://github.com',
-    year: '2024',
-    tag: '3D / WebGL',
+    color: "#f7df1e",
+    image: proj5,
+    live: "https://example.com",
+    github: "https://github.com",
+    year: "2024",
+    tag: null,
   },
-]
+];
 
 export default function Projects() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
-  const [showAll, setShowAll] = useState(false)
-  const [selectedProject, setSelectedProject] = useState(null)
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [showAll, setShowAll] = useState(false);
+  const [selected, setSelected] = useState(null);
 
-  const featured = PROJECTS.filter(p => p.featured)
-  const rest = PROJECTS.filter(p => !p.featured)
+  const featured = PROJECTS.filter((p) => p.featured);
+  const rest = PROJECTS.filter((p) => !p.featured);
 
   return (
-    <section id="projects" ref={ref} className="relative py-32 md:py-40 overflow-hidden">
-
-      {/* Background */}
+    <section
+      id="projects"
+      ref={ref}
+      className="relative py-32 md:py-40 overflow-hidden"
+    >
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 80% 60% at 20% 50%, rgba(0,245,255,0.02) 0%, transparent 100%)',
+          background:
+            "radial-gradient(ellipse 80% 60% at 20% 50%, rgba(0,245,255,0.02) 0%, transparent 100%)",
         }}
       />
 
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           className="flex items-center gap-4 mb-6"
         >
           <span className="line-accent" />
-          <span className="font-mono text-xs tracking-widest uppercase" style={{ color: 'var(--theme-accent)' }}>
+          <span
+            className="font-mono text-xs tracking-widest uppercase"
+            style={{ color: "var(--theme-accent)" }}
+          >
             03 — Work
           </span>
         </motion.div>
@@ -127,7 +124,7 @@ export default function Projects() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1 }}
             className="section-title"
-            style={{ color: 'var(--theme-text-primary)' }}
+            style={{ color: "var(--theme-text-primary)" }}
           >
             Selected <span className="text-gradient-accent">Projects</span>
           </motion.h2>
@@ -136,26 +133,25 @@ export default function Projects() {
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.3 }}
             className="font-mono text-xs"
-            style={{ color: 'var(--theme-text-secondary)' }}
+            style={{ color: "var(--theme-text-secondary)" }}
           >
             {PROJECTS.length} total projects
           </motion.p>
         </div>
 
-        {/* Featured 2 projects */}
-        <div className="grid md:grid-cols-2 gap-6 mb-10">
-          {featured.map((project, i) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
+        <div className="grid md:grid-cols-2 gap-5 mb-10">
+          {featured.map((p, i) => (
+            <Card
+              key={p.id}
+              project={p}
               index={i}
               isInView={isInView}
-              onClick={() => setSelectedProject(project)}
+              tall
+              onClick={() => setSelected(p)}
             />
           ))}
         </div>
 
-        {/* View All button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -163,156 +159,193 @@ export default function Projects() {
           className="text-center my-10"
         >
           <button
-            onClick={() => setShowAll(v => !v)}
+            onClick={() => setShowAll((v) => !v)}
             className="btn-ghost magnetic-wrap inline-flex items-center gap-3"
           >
-            <span>{showAll ? 'Show Less' : `View All Projects (${PROJECTS.length})`}</span>
+            <span>
+              {showAll
+                ? "Show Less"
+                : "View All Projects (" + PROJECTS.length + ")"}
+            </span>
             <motion.span
               animate={{ rotate: showAll ? 180 : 0 }}
               transition={{ duration: 0.3 }}
             >
-              ↓
+              down
             </motion.span>
           </button>
         </motion.div>
 
-        {/* Expandable: remaining projects */}
         <AnimatePresence>
           {showAll && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+              transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
               className="overflow-hidden"
             >
-              <div className="grid md:grid-cols-3 gap-6 pt-4">
-                {rest.map((project, i) => (
-                  <ProjectCard
-                    key={project.id}
-                    project={project}
+              <div className="grid md:grid-cols-3 gap-5 pt-4">
+                {rest.map((p, i) => (
+                  <Card
+                    key={p.id}
+                    project={p}
                     index={i}
-                    isInView={true}
-                    compact
-                    onClick={() => setSelectedProject(project)}
+                    isInView
+                    onClick={() => setSelected(p)}
                   />
                 ))}
               </div>
             </motion.div>
           )}
         </AnimatePresence>
-
       </div>
 
-      {/* Project Detail Modal */}
       <AnimatePresence>
-        {selectedProject && (
-          <ProjectModal
-            project={selectedProject}
-            onClose={() => setSelectedProject(null)}
-          />
+        {selected && (
+          <Modal project={selected} onClose={() => setSelected(null)} />
         )}
       </AnimatePresence>
     </section>
-  )
+  );
 }
 
-/* ============================================
-   ProjectCard component
-   ============================================ */
-function ProjectCard({ project, index, isInView, compact = false, onClick }) {
-  const [hovered, setHovered] = useState(false)
+function Card({ project, index, isInView, onClick, tall = false }) {
+  const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40, scale: 0.97 }}
-      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-      transition={{ duration: 0.6, delay: 0.2 + index * 0.15, ease: [0.4, 0, 0.2, 1] }}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{
+        duration: 0.65,
+        delay: 0.1 + index * 0.13,
+        ease: [0.4, 0, 0.2, 1],
+      }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={onClick}
-      className="relative group rounded-2xl overflow-hidden transition-all duration-500 cursor-none"
+      className="relative overflow-hidden rounded-2xl cursor-pointer"
       style={{
-        border: `1px solid ${hovered ? project.color + '30' : 'var(--theme-glass-border)'}`,
-        background: 'var(--theme-surface)',
-        transform: hovered ? 'translateY(-6px)' : 'none',
-        boxShadow: hovered ? `0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px ${project.color}20` : 'none',
+        height: tall ? "520px" : "400px",
+        boxShadow: hovered
+          ? "0 30px 70px rgba(0,0,0,0.6)"
+          : "0 8px 30px rgba(0,0,0,0.3)",
+        transform: hovered
+          ? "translateY(-6px) scale(1.015)"
+          : "translateY(0) scale(1)",
+        transition:
+          "transform 0.4s cubic-bezier(0.4,0,0.2,1), box-shadow 0.4s ease",
       }}
-      data-cursor-hover
     >
-      {/* Image placeholder / emoji display */}
-      <div
-        className="relative overflow-hidden flex items-center justify-center"
-        style={{
-          height: compact ? '140px' : '220px',
-          background: `linear-gradient(135deg, ${project.color}10 0%, var(--theme-surface-2) 100%)`,
-        }}
-      >
-        {/* Replace this emoji display with an <img> when you have project images */}
-        <span
-          className="text-6xl transition-transform duration-500"
-          style={{ filter: `drop-shadow(0 0 20px ${project.color})`, transform: hovered ? 'scale(1.1)' : 'scale(1)' }}
-        >
-          {project.emoji}
-        </span>
-
-        {/* Corner tag */}
-        <span
-          className="absolute top-3 right-3 font-mono text-[10px] tracking-widest px-2 py-1 rounded"
+      <div className="absolute inset-0">
+        <img
+          src={project.image}
+          alt={project.title}
           style={{
-            background: project.color + '20',
-            color: project.color,
-            border: `1px solid ${project.color}30`,
-          }}
-        >
-          {project.tag}
-        </span>
-
-        {/* Year */}
-        <span
-          className="absolute bottom-3 left-3 font-mono text-[10px] tracking-widest"
-          style={{ color: 'var(--theme-text-secondary)' }}
-        >
-          {project.year}
-        </span>
-
-        {/* Hover overlay */}
-        <div
-          className="absolute inset-0 transition-opacity duration-300 pointer-events-none"
-          style={{
-            background: `linear-gradient(to bottom, transparent 40%, ${project.color}08)`,
-            opacity: hovered ? 1 : 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+            transform: hovered ? "scale(1.08)" : "scale(1)",
+            transition: "transform 0.7s cubic-bezier(0.4,0,0.2,1)",
           }}
         />
       </div>
 
-      {/* Content */}
-      <div className="p-5">
-        <h3
-          className="font-syne font-bold text-lg mb-1 transition-colors duration-200"
-          style={{ color: hovered ? project.color : 'var(--theme-text-primary)' }}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.88) 100%)",
+        }}
+      />
+
+      <motion.div
+        className="absolute inset-0"
+        animate={{ opacity: hovered ? 1 : 0 }}
+        transition={{ duration: 0.4 }}
+        style={{
+          background:
+            "linear-gradient(135deg, " +
+            project.color +
+            "18 0%, transparent 60%)",
+        }}
+      />
+
+      <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
+        <span
+          className="font-mono text-[10px] tracking-widest"
+          style={{ color: "rgba(255,255,255,0.45)" }}
         >
-          {project.title}
-        </h3>
-        <p className="text-xs mb-3" style={{ color: 'var(--theme-accent)', fontFamily: 'JetBrains Mono, monospace' }}>
-          {project.subtitle}
-        </p>
-        {!compact && (
-          <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--theme-text-secondary)' }}>
-            {project.desc}
+          {project.year}
+        </span>
+        {project.tag && (
+          <span
+            className="font-mono text-[10px] tracking-widest px-2.5 py-1 rounded-full"
+            style={{
+              background: "rgba(0,0,0,0.45)",
+              backdropFilter: "blur(10px)",
+              border: "1px solid " + project.color + "50",
+              color: project.color,
+            }}
+          >
+            {project.tag}
+          </span>
+        )}
+      </div>
+
+      <div
+        className="absolute bottom-0 left-0 right-0 p-5"
+        style={{
+          background: "rgba(0,0,0,0.35)",
+          backdropFilter: "blur(20px)",
+          borderTop: "1px solid rgba(255,255,255,0.07)",
+        }}
+      >
+        <div className="mb-3">
+          <h3
+            className="font-syne font-bold mb-0.5"
+            style={{
+              fontSize: tall ? "1.4rem" : "1.1rem",
+              color: hovered ? project.color : "#ffffff",
+              transition: "color 0.3s ease",
+            }}
+          >
+            {project.title}
+          </h3>
+          <p
+            className="font-mono text-[11px] tracking-wider"
+            style={{ color: "rgba(255,255,255,0.45)" }}
+          >
+            {project.subtitle}
           </p>
+        </div>
+
+        {tall && (
+          <motion.p
+            animate={{
+              opacity: hovered ? 1 : 0,
+              height: hovered ? "auto" : 0,
+              marginBottom: hovered ? "12px" : "0px",
+            }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="text-xs leading-relaxed overflow-hidden"
+            style={{ color: "rgba(255,255,255,0.55)" }}
+          >
+            {project.desc}
+          </motion.p>
         )}
 
-        {/* Tech tags */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.tech.map(t => (
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {project.tech.map((t) => (
             <span
               key={t}
-              className="font-mono text-[10px] px-2 py-1 rounded tracking-wider"
+              className="font-mono text-[9px] px-2 py-0.5 rounded-full tracking-wider"
               style={{
-                background: 'var(--theme-glass)',
-                border: '1px solid var(--theme-glass-border)',
-                color: 'var(--theme-text-secondary)',
+                background: "rgba(255,255,255,0.08)",
+                border: "1px solid rgba(255,255,255,0.12)",
+                color: "rgba(255,255,255,0.55)",
               }}
             >
               {t}
@@ -320,18 +353,22 @@ function ProjectCard({ project, index, isInView, compact = false, onClick }) {
           ))}
         </div>
 
-        {/* Action buttons */}
-        <div className="flex gap-3">
+        <div className="flex gap-2.5">
           <a
             href={project.live}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={e => e.stopPropagation()}
-            className="magnetic-wrap flex-1 text-center py-2.5 rounded-lg text-xs font-semibold tracking-widest uppercase transition-all duration-300"
+            onClick={(e) => e.stopPropagation()}
+            className="flex-1 text-center py-2 rounded-lg text-[11px] font-semibold tracking-widest uppercase"
             style={{
-              background: project.color,
-              color: '#000',
-              fontFamily: 'Syne, sans-serif',
+              background: hovered ? project.color : "rgba(255,255,255,0.12)",
+              color: hovered ? "#000" : "#fff",
+              backdropFilter: "blur(10px)",
+              border:
+                "1px solid " +
+                (hovered ? project.color : "rgba(255,255,255,0.12)"),
+              fontFamily: "Syne, sans-serif",
+              transition: "all 0.3s ease",
             }}
           >
             Live Demo
@@ -340,12 +377,15 @@ function ProjectCard({ project, index, isInView, compact = false, onClick }) {
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={e => e.stopPropagation()}
-            className="magnetic-wrap px-4 py-2.5 rounded-lg text-xs font-semibold tracking-widest uppercase transition-all duration-300"
+            onClick={(e) => e.stopPropagation()}
+            className="px-4 py-2 rounded-lg text-[11px] font-semibold tracking-widest uppercase"
             style={{
-              border: '1px solid var(--theme-glass-border)',
-              color: 'var(--theme-text-secondary)',
-              fontFamily: 'Syne, sans-serif',
+              background: "rgba(255,255,255,0.06)",
+              backdropFilter: "blur(10px)",
+              border: "1px solid rgba(255,255,255,0.1)",
+              color: "rgba(255,255,255,0.6)",
+              fontFamily: "Syne, sans-serif",
+              transition: "all 0.3s ease",
             }}
           >
             Code
@@ -353,93 +393,126 @@ function ProjectCard({ project, index, isInView, compact = false, onClick }) {
         </div>
       </div>
     </motion.div>
-  )
+  );
 }
 
-/* ============================================
-   Project Detail Modal
-   ============================================ */
-function ProjectModal({ project, onClose }) {
+function Modal({ project, onClose }) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-[8000] flex items-center justify-center p-4"
-      style={{ background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(20px)' }}
+      style={{ background: "rgba(0,0,0,0.85)", backdropFilter: "blur(24px)" }}
       onClick={onClose}
     >
       <motion.div
-        initial={{ opacity: 0, scale: 0.9, y: 30 }}
+        initial={{ opacity: 0, scale: 0.92, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9, y: 30 }}
-        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+        exit={{ opacity: 0, scale: 0.92, y: 30 }}
+        transition={{ duration: 0.38, ease: [0.4, 0, 0.2, 1] }}
         className="relative w-full max-w-2xl rounded-2xl overflow-hidden"
         style={{
-          background: 'var(--theme-surface)',
-          border: `1px solid ${project.color}30`,
-          boxShadow: `0 0 60px ${project.color}15, 0 40px 80px rgba(0,0,0,0.5)`,
+          background: "var(--theme-surface)",
+          border: "1px solid " + project.color + "30",
+          boxShadow:
+            "0 0 80px " + project.color + "15, 0 40px 80px rgba(0,0,0,0.6)",
+          maxHeight: "90vh",
+          overflowY: "auto",
         }}
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
       >
-        {/* Header image */}
         <div
-          className="flex items-center justify-center"
-          style={{
-            height: '200px',
-            background: `linear-gradient(135deg, ${project.color}15 0%, var(--theme-surface-2) 100%)`,
-          }}
+          style={{ height: "260px", position: "relative", overflow: "hidden" }}
         >
-          <span className="text-8xl" style={{ filter: `drop-shadow(0 0 30px ${project.color})` }}>
-            {project.emoji}
-          </span>
+          <img
+            src={project.image}
+            alt={project.title}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.85))",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              bottom: "20px",
+              left: "24px",
+              right: "24px",
+            }}
+          >
+            <h3
+              className="font-display"
+              style={{
+                fontSize: "2.8rem",
+                color: project.color,
+                lineHeight: 1,
+              }}
+            >
+              {project.title}
+            </h3>
+            <p
+              className="font-mono text-xs tracking-widest mt-1"
+              style={{ color: "rgba(255,255,255,0.5)" }}
+            >
+              {project.subtitle} - {project.year}
+            </p>
+          </div>
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full"
+            style={{
+              background: "rgba(0,0,0,0.5)",
+              backdropFilter: "blur(10px)",
+              border: "1px solid rgba(255,255,255,0.15)",
+              color: "#fff",
+            }}
+          >
+            x
+          </button>
         </div>
 
-        {/* Content */}
         <div className="p-8">
-          <div className="flex items-start justify-between mb-4">
-            <div>
-              <h3 className="font-display text-4xl mb-1" style={{ color: project.color }}>
-                {project.title}
-              </h3>
-              <p className="font-mono text-xs tracking-widest" style={{ color: 'var(--theme-text-secondary)' }}>
-                {project.subtitle} · {project.year}
-              </p>
-            </div>
-            <button
-              onClick={onClose}
-              className="w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-200"
-              style={{ border: '1px solid var(--theme-glass-border)', color: 'var(--theme-text-secondary)' }}
-            >
-              ✕
-            </button>
-          </div>
-
-          <p className="text-sm leading-relaxed mb-6" style={{ color: 'var(--theme-text-secondary)' }}>
+          <p
+            className="text-sm leading-relaxed mb-6"
+            style={{ color: "var(--theme-text-secondary)" }}
+          >
             {project.desc}
           </p>
-
           <div className="flex flex-wrap gap-2 mb-8">
-            {project.tech.map(t => (
+            {project.tech.map((t) => (
               <span
                 key={t}
                 className="font-mono text-xs px-3 py-1.5 rounded-full"
-                style={{ background: project.color + '15', color: project.color, border: `1px solid ${project.color}25` }}
+                style={{
+                  background: project.color + "18",
+                  color: project.color,
+                  border: "1px solid " + project.color + "28",
+                }}
               >
                 {t}
               </span>
             ))}
           </div>
-
           <div className="flex gap-4">
             <a
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 text-center py-3 rounded-xl font-syne font-semibold text-sm tracking-widest uppercase"
-              style={{ background: project.color, color: '#000' }}
+              style={{ background: project.color, color: "#000" }}
             >
-              Visit Live Site →
+              Visit Live Site
             </a>
             <a
               href={project.github}
@@ -447,8 +520,8 @@ function ProjectModal({ project, onClose }) {
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-xl font-syne font-semibold text-sm tracking-widest uppercase"
               style={{
-                border: '1px solid var(--theme-glass-border)',
-                color: 'var(--theme-text-secondary)',
+                border: "1px solid var(--theme-glass-border)",
+                color: "var(--theme-text-secondary)",
               }}
             >
               GitHub
@@ -457,5 +530,5 @@ function ProjectModal({ project, onClose }) {
         </div>
       </motion.div>
     </motion.div>
-  )
+  );
 }

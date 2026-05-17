@@ -18,7 +18,7 @@ const EMAILJS_TEMPLATE_ID = "template_45a9wjk"; // ← paste here
 const EMAILJS_PUBLIC_KEY = "WKsLQSJQ6j9OaJo4q"; // ← paste here
 
 // Your contact details — fill these in
-const EMAIL = "@gmail.com"; // ← your gmail/email
+const EMAIL = "ayoolaibrahimhamed@gmail.com"; // ← your gmail/email
 const WHATSAPP = "+2348134666128"; // already set ✓
 
 // Add your own handles here
