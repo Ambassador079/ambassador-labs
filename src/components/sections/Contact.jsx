@@ -2,26 +2,13 @@ import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
-/* ============================================
-   Contact — EmailJS + WhatsApp + social links
-   
-   SETUP EMAILJS:
-   1. Go to https://emailjs.com and create a free account
-   2. Create a Service (Gmail, Outlook, etc.)
-   3. Create an Email Template — use these variables in your template:
-      {{from_name}}  {{from_email}}  {{message}}
-   4. Copy your IDs below:
-   ============================================ */
+const EMAILJS_SERVICE_ID = "service_e4sbdtn";
+const EMAILJS_TEMPLATE_ID = "template_45a9wjk";
+const EMAILJS_PUBLIC_KEY = "WKsLQSJQ6j9OaJo4q";
 
-const EMAILJS_SERVICE_ID = "service_e4sbdtn"; // ← paste here
-const EMAILJS_TEMPLATE_ID = "template_45a9wjk"; // ← paste here
-const EMAILJS_PUBLIC_KEY = "WKsLQSJQ6j9OaJo4q"; // ← paste here
+const EMAIL = "ambassadorlabs01@gmail.com";
+const WHATSAPP = "+2348134666128";
 
-// Your contact details — fill these in
-const EMAIL = "ayoolaibrahimhamed@gmail.com"; // ← your gmail/email
-const WHATSAPP = "+2348134666128"; // already set ✓
-
-// Add your own handles here
 const SOCIALS = [
   {
     label: "GitHub",
@@ -107,7 +94,6 @@ export default function Contact() {
       />
 
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={inV ? { opacity: 1, x: 0 } : {}}
@@ -123,7 +109,6 @@ export default function Contact() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-24">
-          {/* LEFT — info */}
           <div>
             <motion.h2
               initial={{ opacity: 0, y: 28 }}
@@ -152,7 +137,6 @@ export default function Contact() {
               hasn't seen before.
             </motion.p>
 
-            {/* Copy email */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={inV ? { opacity: 1, y: 0 } : {}}
@@ -198,7 +182,6 @@ export default function Contact() {
               </button>
             </motion.div>
 
-            {/* WhatsApp */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={inV ? { opacity: 1, y: 0 } : {}}
@@ -239,7 +222,6 @@ export default function Contact() {
               </a>
             </motion.div>
 
-            {/* Socials */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={inV ? { opacity: 1, y: 0 } : {}}
@@ -291,7 +273,6 @@ export default function Contact() {
             </motion.div>
           </div>
 
-          {/* RIGHT — Form */}
           <motion.div
             initial={{ opacity: 0, x: 36 }}
             animate={inV ? { opacity: 1, x: 0 } : {}}

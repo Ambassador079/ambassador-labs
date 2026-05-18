@@ -125,7 +125,6 @@ function ToolCard({ tool, index, inV }) {
         gap: hovered ? "10px" : "0px",
       }}
     >
-      {/* PNG icon — always shown, grows on hover */}
       <img
         src={tool.icon}
         alt={tool.name}
@@ -139,7 +138,6 @@ function ToolCard({ tool, index, inV }) {
         }}
       />
 
-      {/* Name — only visible on hover */}
       <motion.span
         animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
         transition={{ duration: 0.2 }}

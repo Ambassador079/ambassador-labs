@@ -52,7 +52,7 @@ export default function Footer() {
                 className="block font-mono text-xs mt-0.5 tracking-widest"
                 style={{ color: "var(--theme-accent)" }}
               >
-                name.labs
+                labs
               </span>
             </div>
 
