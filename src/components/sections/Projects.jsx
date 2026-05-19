@@ -40,8 +40,8 @@ const PROJECTS = [
   {
     id: 3,
     title: "UCanada",
-    subtitle: "immigration & opportunity platform",
-    desc: "A platform design to guild user seeking opportunity in Canada, providing structured information on jobs, studypathways, and relaocation steps.",
+    subtitle: "Immigration & Opportunity Platform",
+    desc: "A platform designed to guide users seeking opportunity in Canada, providing structured information on jobs, study pathways, and relocation steps.",
     tech: ["React", "Framer Motion", "Tailwind", "JavaScript"],
     featured: false,
     color: "#7b61ff",
@@ -57,7 +57,7 @@ const PROJECTS = [
     subtitle: "Nail Technician Portfolio",
     desc: "A stylish nail technician website showcasing luxury nail designs, acrylic sets, gel polish services, and booking information with a clean modern aesthetic.",
     tech: ["React", "Tailwind", "JavaScript", "Framer Motion"],
-    featured: true,
+    featured: false,
     color: "#ff5ca8",
     image: proj4,
     live: "https://banky-nails.vercel.app/",
@@ -67,11 +67,11 @@ const PROJECTS = [
   },
   {
     id: 5,
-    title: "Teejay × Miso Premium Autos",
+    title: "Teejay x Miso Premium Autos",
     subtitle: "Luxury Car Rental Platform",
     desc: "A sleek premium car rental website showcasing luxury vehicles, seamless booking experiences, and modern automotive visuals designed for elegance and performance.",
     tech: ["React", "Tailwind", "JavaScript", "Framer Motion"],
-    featured: true,
+    featured: false,
     color: "#00c2ff",
     image: proj5,
     live: "https://teejayautos.vercel.app/",
@@ -85,7 +85,7 @@ const PROJECTS = [
     subtitle: "Milkshake Brand Landing Page",
     desc: "A vibrant and refreshing landing page for a milkshake brand featuring bold visuals, smooth animations, and a playful modern design crafted to attract customers instantly.",
     tech: ["React", "Tailwind", "JavaScript", "Framer Motion"],
-    featured: true,
+    featured: false,
     color: "#ff8c42",
     image: proj6,
     live: "https://mos-shakes.vercel.app/",
@@ -101,8 +101,8 @@ export default function Projects() {
   const [showAll, setShowAll] = useState(false);
   const [selected, setSelected] = useState(null);
 
-  const featured = PROJECTS.filter((p) => p.featured);
-  const rest = PROJECTS.filter((p) => !p.featured);
+  const featured = PROJECTS.filter((p) => p.featured); // exactly 2
+  const rest = PROJECTS.filter((p) => !p.featured); // remaining 4
 
   return (
     <section
@@ -154,6 +154,7 @@ export default function Projects() {
           </motion.p>
         </div>
 
+        {/* Always show exactly 2 featured */}
         <div className="grid md:grid-cols-2 gap-5 mb-10">
           {featured.map((p, i) => (
             <Card
@@ -167,6 +168,7 @@ export default function Projects() {
           ))}
         </div>
 
+        {/* View All toggle */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -186,11 +188,12 @@ export default function Projects() {
               animate={{ rotate: showAll ? 180 : 0 }}
               transition={{ duration: 0.3 }}
             >
-              down
+              ↓
             </motion.span>
           </button>
         </motion.div>
 
+        {/* Remaining 4 in a 3-col grid */}
         <AnimatePresence>
           {showAll && (
             <motion.div
@@ -200,7 +203,7 @@ export default function Projects() {
               transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
               className="overflow-hidden"
             >
-              <div className="grid md:grid-cols-3 gap-5 pt-4">
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 pt-4">
                 {rest.map((p, i) => (
                   <Card
                     key={p.id}
@@ -242,7 +245,7 @@ function Card({ project, index, isInView, onClick, tall = false }) {
       onClick={onClick}
       className="relative overflow-hidden rounded-2xl cursor-pointer"
       style={{
-        height: tall ? "520px" : "400px",
+        height: tall ? "520px" : "380px",
         boxShadow: hovered
           ? "0 30px 70px rgba(0,0,0,0.6)"
           : "0 8px 30px rgba(0,0,0,0.3)",
@@ -253,6 +256,7 @@ function Card({ project, index, isInView, onClick, tall = false }) {
           "transform 0.4s cubic-bezier(0.4,0,0.2,1), box-shadow 0.4s ease",
       }}
     >
+      {/* Full bleed image */}
       <div className="absolute inset-0">
         <img
           src={project.image}
@@ -268,6 +272,7 @@ function Card({ project, index, isInView, onClick, tall = false }) {
         />
       </div>
 
+      {/* Dark gradient */}
       <div
         className="absolute inset-0"
         style={{
@@ -276,6 +281,7 @@ function Card({ project, index, isInView, onClick, tall = false }) {
         }}
       />
 
+      {/* Colour wash on hover */}
       <motion.div
         className="absolute inset-0"
         animate={{ opacity: hovered ? 1 : 0 }}
@@ -288,6 +294,7 @@ function Card({ project, index, isInView, onClick, tall = false }) {
         }}
       />
 
+      {/* Top: year + tag */}
       <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
         <span
           className="font-mono text-[10px] tracking-widest"
@@ -310,6 +317,7 @@ function Card({ project, index, isInView, onClick, tall = false }) {
         )}
       </div>
 
+      {/* Bottom glass panel */}
       <div
         className="absolute bottom-0 left-0 right-0 p-5"
         style={{
@@ -322,7 +330,7 @@ function Card({ project, index, isInView, onClick, tall = false }) {
           <h3
             className="font-syne font-bold mb-0.5"
             style={{
-              fontSize: tall ? "1.4rem" : "1.1rem",
+              fontSize: tall ? "1.4rem" : "1.05rem",
               color: hovered ? project.color : "#ffffff",
               transition: "color 0.3s ease",
             }}
@@ -337,6 +345,7 @@ function Card({ project, index, isInView, onClick, tall = false }) {
           </p>
         </div>
 
+        {/* Description slides in on hover — tall cards only */}
         {tall && (
           <motion.p
             animate={{
@@ -352,6 +361,7 @@ function Card({ project, index, isInView, onClick, tall = false }) {
           </motion.p>
         )}
 
+        {/* Tech pills */}
         <div className="flex flex-wrap gap-1.5 mb-4">
           {project.tech.map((t) => (
             <span
@@ -368,6 +378,7 @@ function Card({ project, index, isInView, onClick, tall = false }) {
           ))}
         </div>
 
+        {/* Buttons */}
         <div className="flex gap-2.5">
           <a
             href={project.live}
@@ -469,7 +480,7 @@ function Modal({ project, onClose }) {
             <h3
               className="font-display"
               style={{
-                fontSize: "2.8rem",
+                fontSize: "2.5rem",
                 color: project.color,
                 lineHeight: 1,
               }}
@@ -480,7 +491,7 @@ function Modal({ project, onClose }) {
               className="font-mono text-xs tracking-widest mt-1"
               style={{ color: "rgba(255,255,255,0.5)" }}
             >
-              {project.subtitle} - {project.year}
+              {project.subtitle} · {project.year}
             </p>
           </div>
           <button
@@ -491,9 +502,10 @@ function Modal({ project, onClose }) {
               backdropFilter: "blur(10px)",
               border: "1px solid rgba(255,255,255,0.15)",
               color: "#fff",
+              fontSize: "14px",
             }}
           >
-            x
+            ✕
           </button>
         </div>
 
@@ -527,7 +539,7 @@ function Modal({ project, onClose }) {
               className="flex-1 text-center py-3 rounded-xl font-syne font-semibold text-sm tracking-widest uppercase"
               style={{ background: project.color, color: "#000" }}
             >
-              Visit Live Site
+              Visit Live Site →
             </a>
             <a
               href={project.github}
