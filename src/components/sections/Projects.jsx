@@ -39,8 +39,8 @@ const PROJECTS = [
   {
     id: 3,
     title: "UCanada",
-    subtitle: "Portfolio Template Suite",
-    desc: "A collection of premium, customizable portfolio templates built with Next.js and Framer Motion for creatives and developers.",
+    subtitle: "immigration & opportunity platform",
+    desc: "A platform design to guild user seeking opportunity in Canada, providing structured information on jobs, studypathways, and relaocation steps.",
     tech: ["Next.js", "Framer Motion", "Tailwind", "Lenis"],
     featured: false,
     color: "#7b61ff",
