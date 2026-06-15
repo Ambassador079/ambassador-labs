@@ -21,18 +21,18 @@ function AppInner() {
 
   return (
     <>
-      {/* Grain overlay */}
+
       <div className="grain-overlay" aria-hidden="true" />
 
-      {/* Scroll progress bar */}
+     
       <ScrollProgress />
 
-      {/* Preloader */}
+      
       <AnimatePresence>
         {!loaded && <Preloader onComplete={() => setLoaded(true)} />}
       </AnimatePresence>
 
-      {/* Main experience */}
+      
       <motion.div
         initial={{ opacity: 0 }}
         animate={loaded ? { opacity: 1 } : { opacity: 0 }}

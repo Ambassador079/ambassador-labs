@@ -12,13 +12,13 @@ const WHATSAPP = "+2348134666128";
 const SOCIALS = [
   {
     label: "GitHub",
-    href: "https://github.com/YOUR_HANDLE",
+    href: "https://github.com/Ambassador079",
     handle: "@ambassador079",
   },
   // {
   //   label: "Twitter",
-  //   href: "https://twitter.com/YOUR_HANDLE",
-  //   handle: "@yourtwitter",
+  //   href: "https://twitter.com",
+  //   handle: "",
   // },
   {
     label: "LinkedIn",
@@ -27,7 +27,7 @@ const SOCIALS = [
   },
   // {
   //   label: "Instagram",
-  //   href: "https://instagram.com/YOUR_HANDLE",
+  //   href: "https://instagram.com",
   //   handle: "@yourinstagram",
   // },
 ];
