@@ -1,16 +1,7 @@
-import { useScrollProgress } from '../../hooks/useScrollProgress'
-
-/* ============================================
-   ScrollProgress — Top progress indicator bar
-   ============================================ */
+import { useScrollProgress } from "../../hooks/useScrollProgress";
 
 export default function ScrollProgress() {
-  const { progress } = useScrollProgress()
+  const { progress } = useScrollProgress();
 
-  return (
-    <div
-      className="scroll-progress"
-      style={{ width: `${progress}%` }}
-    />
-  )
+  return <div className="scroll-progress" style={{ width: `${progress}%` }} />;
 }

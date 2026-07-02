@@ -49,7 +49,6 @@ export default function Navbar({ visible }) {
             transition: "box-shadow 0.4s ease",
           }}
         >
-          {/* LOGO IMAGE */}
           <button
             onClick={() => go("home")}
             className="magnetic-wrap mr-2 flex items-center justify-center"
@@ -75,7 +74,6 @@ export default function Navbar({ visible }) {
             style={{ background: "var(--theme-text-secondary)" }}
           />
 
-          {/* Desktop links */}
           <div className="hidden md:flex items-center gap-0.5">
             {NAV_ITEMS.map((item) => (
               <NavPill
@@ -87,7 +85,6 @@ export default function Navbar({ visible }) {
             ))}
           </div>
 
-          {/* Theme toggle */}
           <button
             onClick={cycleTheme}
             className="magnetic-wrap ml-2 w-7 h-7 flex items-center justify-center rounded-full text-xs transition-all duration-300 hover:scale-110"
@@ -101,7 +98,6 @@ export default function Navbar({ visible }) {
             {THEMES.find((t) => t.id === theme)?.icon}
           </button>
 
-          {/* Mobile hamburger */}
           <button
             onClick={() => setMenuOpen((v) => !v)}
             className="md:hidden ml-2 w-8 h-8 flex flex-col items-center justify-center gap-1.5"
@@ -128,7 +124,6 @@ export default function Navbar({ visible }) {
         </div>
       </motion.nav>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div

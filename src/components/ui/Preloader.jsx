@@ -31,7 +31,6 @@ export default function Preloader({ onComplete }) {
         overflow: "hidden",
       }}
     >
-      {/* Glow blob — appears when they meet */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{
@@ -53,7 +52,6 @@ export default function Preloader({ onComplete }) {
         }}
       />
 
-      {/* AMBASSADOR — slides in from TOP */}
       <div
         style={{
           display: "flex",
@@ -77,7 +75,6 @@ export default function Preloader({ onComplete }) {
         ))}
       </div>
 
-      {/* LABS — slides in from BOTTOM */}
       <motion.div
         initial={{ y: "50vh", opacity: 0 }}
         animate={
@@ -105,7 +102,6 @@ export default function Preloader({ onComplete }) {
         LABS
       </motion.div>
 
-      {/* Fade to black on explode */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: phase === "explode" ? 1 : 0 }}

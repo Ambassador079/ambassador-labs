@@ -1,50 +1,45 @@
-import { useRef, useEffect } from 'react'
-import { gsap } from 'gsap'
-
-/* ============================================
-   useMagneticHover — GSAP magnetic pull effect
-   Pulls element toward cursor on hover
-   ============================================ */
+import { useRef, useEffect } from "react";
+import { gsap } from "gsap";
 
 export function useMagneticHover(strength = 0.4) {
-  const ref = useRef(null)
+  const ref = useRef(null);
 
   useEffect(() => {
-    const el = ref.current
-    if (!el) return
+    const el = ref.current;
+    if (!el) return;
 
     const onMove = (e) => {
-      const rect = el.getBoundingClientRect()
-      const cx = rect.left + rect.width / 2
-      const cy = rect.top + rect.height / 2
-      const dx = (e.clientX - cx) * strength
-      const dy = (e.clientY - cy) * strength
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) * strength;
+      const dy = (e.clientY - cy) * strength;
 
       gsap.to(el, {
         x: dx,
         y: dy,
         duration: 0.4,
-        ease: 'power2.out',
-      })
-    }
+        ease: "power2.out",
+      });
+    };
 
     const onLeave = () => {
       gsap.to(el, {
         x: 0,
         y: 0,
         duration: 0.6,
-        ease: 'elastic.out(1, 0.4)',
-      })
-    }
+        ease: "elastic.out(1, 0.4)",
+      });
+    };
 
-    el.addEventListener('mousemove', onMove)
-    el.addEventListener('mouseleave', onLeave)
+    el.addEventListener("mousemove", onMove);
+    el.addEventListener("mouseleave", onLeave);
 
     return () => {
-      el.removeEventListener('mousemove', onMove)
-      el.removeEventListener('mouseleave', onLeave)
-    }
-  }, [strength])
+      el.removeEventListener("mousemove", onMove);
+      el.removeEventListener("mouseleave", onLeave);
+    };
+  }, [strength]);
 
-  return ref
+  return ref;
 }

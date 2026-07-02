@@ -48,7 +48,7 @@ const PROJECTS = [
     image: proj3,
     live: "https://ucanada.vercel.app/",
     github: "https://github.com/Ambassador079/Ucanada",
-    year: "2023",
+    year: "2026",
     tag: "Live",
   },
   {

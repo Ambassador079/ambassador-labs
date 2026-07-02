@@ -23,7 +23,7 @@ const SOCIALS = [
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/ayoola-ibrahim-bb03532a8/?skipRedirect=true",
-    handle: "Ayoola Ibrahim Ambassador",
+    handle: "Ambassador labs",
   },
   // {
   //   label: "Instagram",

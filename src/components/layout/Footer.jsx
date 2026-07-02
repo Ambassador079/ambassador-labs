@@ -1,10 +1,6 @@
 import { motion } from "framer-motion";
 import { scrollToSection } from "../../hooks/useLenis";
 
-/* ============================================
-   Footer — Clean premium footer
-   ============================================ */
-
 const LINKS = ["Home", "About", "Tools", "Projects", "Contact"];
 
 export default function Footer() {
@@ -12,7 +8,6 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden">
-      {/* Top accent line */}
       <div className="relative h-px">
         <div
           className="absolute inset-0"
@@ -38,9 +33,7 @@ export default function Footer() {
         style={{ background: "var(--theme-surface)" }}
       >
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-          {/* Top row */}
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-10">
-            {/* Logo */}
             <div>
               <span
                 className="font-display text-3xl tracking-widest"
@@ -56,7 +49,6 @@ export default function Footer() {
               </span>
             </div>
 
-            {/* Nav links */}
             <nav className="flex flex-wrap gap-x-8 gap-y-2">
               {LINKS.map((link) => (
                 <button
@@ -77,13 +69,11 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Divider */}
           <div
             className="h-px mb-8"
             style={{ background: "var(--theme-glass-border)" }}
           />
 
-          {/* Bottom row */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p
               className="font-mono text-xs"
